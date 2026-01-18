@@ -1,43 +1,23 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Canvas } from '@react-three/fiber/native'; // CAMBIO CLAVE PARA CELULAR
-import { Physics, RigidBody } from '@react-three/rapier';
-import { PhysicsCube } from '../components/PhysicsCube';
-import { THEME } from '../lib/constants/theme';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
-export default function Home() {
+export default function Welcome() {
+  const router = useRouter();
+
   return (
-    <View style={styles.container}>
-      <Canvas 
-        shadows 
-        camera={{ position: [0, 8, 12], fov: 35 }}
+    <View className="flex-1 bg-black items-center justify-center p-6">
+      <StatusBar style="light" />
+      <View className="border-2 border-yellow-400 p-8 mb-10 rotate-3">
+        <Text className="text-yellow-400 text-6xl font-black italic">VOLT-DICE</Text>
+      </View>
+      
+      <TouchableOpacity 
+        onPress={() => router.push('/game')}
+        className="bg-yellow-400 w-full py-5 items-center skew-x-[-12deg]"
       >
-        <ambientLight intensity={0.5} />
-        <pointLight 
-          position={[10, 10, 10]} 
-          intensity={THEME.lightIntensity} 
-          castShadow 
-        />
-
-        <Physics>
-          <PhysicsCube position={[0, 5, 0]} />
-
-          {/* Suelo estático */}
-          <RigidBody type="fixed">
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]} receiveShadow>
-              <planeGeometry args={[50, 50]} />
-              <meshStandardMaterial color={THEME.groundColor} />
-            </mesh>
-          </RigidBody>
-        </Physics>
-      </Canvas>
+        <Text className="text-black font-bold text-xl uppercase tracking-widest">Inicializar Sistema</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-});

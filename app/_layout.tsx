@@ -1,27 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useColorScheme } from '../lib/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  initialRouteName: 'index',
-};
+import { View } from 'react-native';
+import '../global.css';
 
 export default function RootLayout() {
-  const { colorScheme } = useColorScheme();
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen 
-            name="index" 
-            options={{ headerShown: false }} 
-          />
-        </Stack>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-      </ThemeProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          // Fondo negro sólido para evitar fugas de color de la app de tu amigo
+          contentStyle: { backgroundColor: '#000000' },
+          animation: 'fade_from_bottom', 
+        }}
+      >
+        {/* Pantalla de inicio */}
+        <Stack.Screen name="index" />
+        
+        {/* Pantalla del juego con animación de diapositiva vertical */}
+        <Stack.Screen 
+          name="game" 
+          options={{
+            animation: 'slide_from_bottom',
+          }}
+        />
+      </Stack>
     </GestureHandlerRootView>
   );
 }
