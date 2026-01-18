@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { Canvas } from '@react-three/fiber/native';
-import { useMotion } from '@/src/lib/hooks/use-motion';
-import { isDeviceMoving, getRandomFace } from '@/src/lib/sensors/motion-engine';
-import { CyberDice } from '@/src/components/CyberDice';
+import { useMotion } from '@/lib/hooks/use-motion';
+import { isDeviceMoving, getRandomFace } from '@/lib/sensors/motion-engine';
+import { CyberDice } from '@/components/CyberDice';
 
 export default function GameScreen() {
   const [val, setVal] = useState(1);
